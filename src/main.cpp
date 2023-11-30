@@ -1,21 +1,15 @@
-#include <SFML/Graphics.hpp>
+#include "Game.h"
+#include "RamWindow.h"
 
 int main()
 {
-    auto window = sf::RenderWindow{ { 1920u, 1080u }, "CMake SFML Project" };
-    window.setFramerateLimit(144);
+    sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Christmas Project");
+    window.setFramerateLimit(60);
+    window.setKeyRepeatEnabled(false);
 
+    Game game(window);
     while (window.isOpen())
-    {
-        for (auto event = sf::Event{}; window.pollEvent(event);)
-        {
-            if (event.type == sf::Event::Closed)
-            {
-                window.close();
-            }
-        }
+        game.run();
 
-        window.clear();
-        window.display();
-    }
+    return 0;
 }
