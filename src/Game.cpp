@@ -18,6 +18,10 @@ void Game::run()
 
 void Game::processEvents()
 {
+    sf::Event ev;
+    while (rw.pollEvent(ev))
+        if (ev.type == sf::Event::Closed)
+            rw.close();
 }
 
 void Game::updateEntities()
