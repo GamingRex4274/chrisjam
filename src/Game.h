@@ -1,4 +1,4 @@
-#include <SFML/Graphics.hpp>
+#include "Entity.h"
 #include <vector>
 
 #ifndef GAME_H
@@ -18,6 +18,7 @@ private:
     sf::RenderWindow& rw;
     sf::Clock clock;
     /** Game Variables **/
+    Entity entity;
 };
 
 #endif

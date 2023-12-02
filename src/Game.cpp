@@ -22,14 +22,11 @@ void Game::processEvents()
 
 void Game::updateEntities()
 {
+    float dt = clock.restart().asSeconds();
+    entity.update(rw, dt);
 }
 
 void Game::drawFrame()
 {
-    float radius = 300.0f;
-    sf::CircleShape circle(radius);
-    circle.setFillColor(sf::Color::Blue);
-    circle.setOrigin({radius, radius});
-    circle.setPosition(GetScreenCenter());
-    rw.draw(circle);
+    entity.draw(rw);
 }

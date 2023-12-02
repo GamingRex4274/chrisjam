@@ -10,7 +10,7 @@ FetchContent_Declare(SFML
     GIT_TAG 2.6.x)
 FetchContent_MakeAvailable(SFML)
 
-add_executable(ChristmasJam src/main.cpp src/Game.cpp src/RamMath.h src/RamWindow.h)
+add_executable(ChristmasJam src/main.cpp src/Game.cpp src/RamMath.h src/RamWindow.h src/Entity.cpp)
 target_link_libraries(ChristmasJam PRIVATE sfml-graphics)
 target_compile_features(ChristmasJam PRIVATE cxx_std_17)
 
