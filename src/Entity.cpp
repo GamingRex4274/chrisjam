@@ -1,11 +1,16 @@
 #include "Entity.h"
 #include "RamWindow.h"
 #include "RamMath.h"
+#include <random>
 
 Entity::Entity()
     :
     rect({width, height})
 {
+    std::mt19937 rng(std::random_device{}());
+    std::uniform_int_distribution<int> dist(0, 1);
+    is_gift = dist(rng);
+
     if (is_gift)
         rect.setFillColor(sf::Color::Red);
     else
