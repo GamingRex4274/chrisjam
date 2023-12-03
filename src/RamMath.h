@@ -1,19 +1,19 @@
 // #include <SFML/Graphics.hpp>
-// #include <cmath>
+#include <cmath>
 
-// static float GetLengthSq(const sf::Vector2f& v)
-// {
-//     return v.x * v.x + v.y * v.y;
-// }
+static float GetLengthSq(const sf::Vector2f& v)
+{
+    return v.x * v.x + v.y * v.y;
+}
 
-// static sf::Vector2f GetNormalized(const sf::Vector2f& v)
-// {
-//     const float sqLength = GetLengthSq(v);
-//     if (sqLength != 0)
-//         return v / float(sqrt(sqLength));
-//     else
-//         return v;
-// }
+static sf::Vector2f GetNormalized(const sf::Vector2f& v)
+{
+    const float sqLength = GetLengthSq(v);
+    if (sqLength != 0)
+        return v / float(sqrt(sqLength));
+    else
+        return v;
+}
 
 // static sf::FloatRect GetExpanded(const sf::FloatRect& src, float offset)
 // {

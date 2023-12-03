@@ -8,26 +8,33 @@ Entity::Entity()
     rect({width, height})
 {
     std::mt19937 rng(std::random_device{}());
+
+    // Randomize type (gift or coal).
     std::uniform_int_distribution<int> dist(0, 1);
     is_gift = dist(rng);
 
+    // Set entity sprite based on type.
     if (is_gift)
         rect.setFillColor(sf::Color::Red);
     else
         rect.setFillColor(sf::Color::Yellow);
-    
+
+    // Randomize direction.
+    std::uniform_real_distribution<float> dirDist(-1.0f, 1.0f);
+    dir = GetNormalized({dirDist(rng), dirDist(rng)});
+
     rect.setOrigin(sf::Vector2f(width, height) / 2.0f);
     rect.setPosition(GetScreenCenter());
 }
 
 void Entity::startMovement()
 {
-    moving = true;
+    dragging = true;
 }
 
 void Entity::update(sf::RenderWindow& rw, float dt)
 {
-    if (moving)
+    if (dragging)
     {
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
         {
@@ -37,18 +44,18 @@ void Entity::update(sf::RenderWindow& rw, float dt)
             clamp();
         }
         else
-            moving = false;
+            dragging = false;
+    }
+    else
+    {
+        const sf::Vector2f pos = rect.getPosition();
+        move(dt);
     }
 }
 
 void Entity::draw(sf::RenderWindow& rw)
 {
     rw.draw(rect);
-}
-
-bool Entity::isMoving() const
-{
-    return moving;
 }
 
 bool Entity::contains(const sf::Vector2f& pos) const
@@ -64,6 +71,18 @@ bool Entity::isGift() const
 sf::FloatRect Entity::getRect() const
 {
     return rect.getGlobalBounds();
+}
+
+void Entity::move(float dt)
+{
+    // Change direction if entity hits screen edges.
+    const sf::Vector2f pos = rect.getPosition();
+    if (pos.x - width / 2 < 0 || pos.x + width / 2 >= SCREEN_WIDTH)
+        dir.x = -dir.x;
+    if (pos.y - height / 2 < 0 || pos.y + height / 2 >= SCREEN_HEIGHT)
+        dir.y = -dir.y;
+    
+    rect.move(dir * speed * dt);
 }
 
 void Entity::clamp()
