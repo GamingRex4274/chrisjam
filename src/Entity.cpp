@@ -47,6 +47,11 @@ bool Entity::contains(const sf::Vector2f& pos) const
     return rect.getGlobalBounds().contains(pos);
 }
 
+sf::FloatRect Entity::getRect() const
+{
+    return rect.getGlobalBounds();
+}
+
 void Entity::clamp()
 {
     sf::Vector2f pos = rect.getPosition();

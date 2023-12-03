@@ -12,6 +12,7 @@ public:
     void draw(sf::RenderWindow& rw);
     bool isMoving() const;
     bool contains(const sf::Vector2f& pos) const;
+    sf::FloatRect getRect() const;
 private:
     void clamp();
 private:

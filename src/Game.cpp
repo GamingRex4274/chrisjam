@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "RamWindow.h"
+#include <iostream>
 
 Game::Game(sf::RenderWindow& rw)
     :
@@ -35,9 +36,13 @@ void Game::updateEntities()
 {
     float dt = clock.restart().asSeconds();
     entity.update(rw, dt);
+
+    if (cont.contains(entity))
+        std::cout << "Box is contained!\n";
 }
 
 void Game::drawFrame()
 {
+    cont.draw(rw);
     entity.draw(rw);
 }

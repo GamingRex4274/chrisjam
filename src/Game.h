@@ -1,4 +1,5 @@
 #include "Entity.h"
+#include "Container.h"
 #include <vector>
 
 #ifndef GAME_H
@@ -19,6 +20,7 @@ private:
     sf::Clock clock;
     /** Game Variables **/
     Entity entity;
+    Container cont;
 };
 
 #endif
