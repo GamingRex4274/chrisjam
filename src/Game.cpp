@@ -40,9 +40,15 @@ void Game::updateEntities()
     entity.update(rw, dt);
 
     if (cont1.contains(entity))
-        std::cout << "Box is contained in 1\n";
+        if (entity.isGift())
+            std::cout << "Box is CORRECTLY contained in 1\n";
+        else
+            std::cout << "Box is WRONGLY contained in 1\n";
     else if (cont2.contains(entity))
-        std::cout << "Box is contained in 2\n";
+        if (entity.isGift())
+            std::cout << "Box is WRONGLY contained in 2\n";
+        else
+            std::cout << "Box is CORRECTLY contained in 2\n";
 }
 
 void Game::drawFrame()

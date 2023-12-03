@@ -12,11 +12,13 @@ public:
     void draw(sf::RenderWindow& rw);
     bool isMoving() const;
     bool contains(const sf::Vector2f& pos) const;
+    bool isGift() const;
     sf::FloatRect getRect() const;
 private:
     void clamp();
 private:
     bool moving = false;
+    bool is_gift = false;
     static constexpr int width = 32;
     static constexpr int height = 32;
     sf::RectangleShape rect;

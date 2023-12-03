@@ -6,7 +6,11 @@ Entity::Entity()
     :
     rect({width, height})
 {
-    rect.setFillColor(sf::Color::Red);
+    if (is_gift)
+        rect.setFillColor(sf::Color::Red);
+    else
+        rect.setFillColor(sf::Color::Yellow);
+    
     rect.setOrigin(sf::Vector2f(width, height) / 2.0f);
     rect.setPosition(GetScreenCenter());
 }
@@ -45,6 +49,11 @@ bool Entity::isMoving() const
 bool Entity::contains(const sf::Vector2f& pos) const
 {
     return rect.getGlobalBounds().contains(pos);
+}
+
+bool Entity::isGift() const
+{
+    return is_gift;
 }
 
 sf::FloatRect Entity::getRect() const
