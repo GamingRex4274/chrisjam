@@ -22,6 +22,13 @@ void Game::processEvents()
     while (rw.pollEvent(ev))
         if (ev.type == sf::Event::Closed)
             rw.close();
+        if (ev.type == sf::Event::MouseButtonPressed)
+            if (ev.mouseButton.button == sf::Mouse::Left)
+            {
+                const sf::Vector2f pos = sf::Vector2f(ev.mouseButton.x, ev.mouseButton.y);
+                if (entity.contains(pos))
+                    entity.startMovement();
+            }
 }
 
 void Game::updateEntities()
