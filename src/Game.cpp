@@ -29,31 +29,50 @@ void Game::processEvents()
             if (ev.mouseButton.button == sf::Mouse::Left)
             {
                 const sf::Vector2f pos = sf::Vector2f(ev.mouseButton.x, ev.mouseButton.y);
-                if (entity.contains(pos))
-                    entity.startMovement();
+                for (Entity& e : entities)
+                    if (e.contains(pos))
+                    {
+                        e.startMovement();
+                        break;
+                    }
             }
 }
 
 void Game::updateEntities()
 {
     float dt = clock.restart().asSeconds();
-    entity.update(rw, dt);
 
-    if (cont1.contains(entity))
-        if (entity.isGift())
-            std::cout << "Box is CORRECTLY contained in 1\n";
-        else
-            std::cout << "Box is WRONGLY contained in 1\n";
-    else if (cont2.contains(entity))
-        if (entity.isGift())
-            std::cout << "Box is WRONGLY contained in 2\n";
-        else
-            std::cout << "Box is CORRECTLY contained in 2\n";
+    // Spawn new entities.
+    curTime += dt;
+    if (curTime >= spawnTime)
+    {
+        entities.emplace_back();
+        curTime = 0.0f;
+    }
+
+    // Update all entities
+    for (Entity& e : entities)
+        e.update(rw, dt);
+
+    // Execute collision of all entities with containers.
+    for (int i = 0; i < entities.size(); i++)
+        if (cont1.contains(entities[i]))
+            if (entities[i].isGift())
+                std::cout << "Box " << i << " is CORRECTLY contained in 1\n";
+            else
+                std::cout << "Box " << i << " is WRONGLY contained in 1\n";
+        else if (cont2.contains(entities[i]))
+            if (entities[i].isGift())
+                std::cout << "Box " << i << " is WRONGLY contained in 2\n";
+            else
+                std::cout << "Box " << i << " is CORRECTLY contained in 2\n";
 }
 
 void Game::drawFrame()
 {
     cont1.draw(rw);
     cont2.draw(rw);
-    entity.draw(rw);
+    
+    for (Entity& e : entities)
+        e.draw(rw);
 }

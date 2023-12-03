@@ -19,9 +19,11 @@ private:
     sf::RenderWindow& rw;
     sf::Clock clock;
     /** Game Variables **/
-    Entity entity;
+    std::vector<Entity> entities;
     Container cont1;
     Container cont2;
+    static constexpr float spawnTime = 2.0f;
+    float curTime = 0.0f;
 };
 
 #endif
