@@ -7,7 +7,7 @@
 class Container
 {
 public:
-    Container();
+    Container(const sf::Vector2f& pos, sf::Color color);
     void draw(sf::RenderWindow& rw);
     bool contains(const Entity& entity) const;
 private:

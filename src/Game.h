@@ -20,7 +20,8 @@ private:
     sf::Clock clock;
     /** Game Variables **/
     Entity entity;
-    Container cont;
+    Container cont1;
+    Container cont2;
 };
 
 #endif

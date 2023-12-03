@@ -4,7 +4,9 @@
 
 Game::Game(sf::RenderWindow& rw)
     :
-    rw(rw)
+    rw(rw),
+    cont1({20.0f, 250.0f}, sf::Color::Green),
+    cont2({SCREEN_WIDTH - 120.0f, 250.0f}, sf::Color::Blue)
 {
 }
 
@@ -37,12 +39,15 @@ void Game::updateEntities()
     float dt = clock.restart().asSeconds();
     entity.update(rw, dt);
 
-    if (cont.contains(entity))
-        std::cout << "Box is contained!\n";
+    if (cont1.contains(entity))
+        std::cout << "Box is contained in 1\n";
+    else if (cont2.contains(entity))
+        std::cout << "Box is contained in 2\n";
 }
 
 void Game::drawFrame()
 {
-    cont.draw(rw);
+    cont1.draw(rw);
+    cont2.draw(rw);
     entity.draw(rw);
 }

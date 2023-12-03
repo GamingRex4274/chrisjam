@@ -1,11 +1,11 @@
 #include "Container.h"
 
-Container::Container()
+Container::Container(const sf::Vector2f& pos, sf::Color color)
     :
     rect({width, height})
 {
-    rect.setFillColor(sf::Color::White);
-    rect.setPosition({10.0f, 250.0f});
+    rect.setFillColor(color);
+    rect.setPosition(pos);
 }
 
 void Container::draw(sf::RenderWindow& rw)
