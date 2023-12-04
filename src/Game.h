@@ -15,6 +15,7 @@ private:
     void updateEntities();
     void drawFrame();
     /** Game Functions **/
+    void doEntityContainment();
 private:
     sf::RenderWindow& rw;
     sf::Clock clock;

@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "RamWindow.h"
+#include <cassert>
 #include <iostream>
 
 Game::Game(sf::RenderWindow& rw)
@@ -54,18 +55,7 @@ void Game::updateEntities()
     for (Entity& e : entities)
         e.update(rw, dt);
 
-    // Execute collision of all entities with containers.
-    for (int i = 0; i < entities.size(); i++)
-        if (cont1.contains(entities[i]))
-            if (entities[i].isGift())
-                std::cout << "Box " << i << " is CORRECTLY contained in 1\n";
-            else
-                std::cout << "Box " << i << " is WRONGLY contained in 1\n";
-        else if (cont2.contains(entities[i]))
-            if (entities[i].isGift())
-                std::cout << "Box " << i << " is WRONGLY contained in 2\n";
-            else
-                std::cout << "Box " << i << " is CORRECTLY contained in 2\n";
+    doEntityContainment();
 }
 
 void Game::drawFrame()
@@ -75,4 +65,46 @@ void Game::drawFrame()
     
     for (Entity& e : entities)
         e.draw(rw);
+}
+
+void Game::doEntityContainment()
+{
+    // Execute collision of all entities with containers.
+    auto i = entities.begin();
+    while (i != entities.end())
+    {
+        if (cont1.contains(*i))
+        {
+            if (i->isGift())
+            {
+                // Delete and adjust iterator.
+                i = entities.erase(i);
+            }
+            else
+            {
+                std::cout << "YOU LOSE.\n";
+                // Advance iterator normally.
+                i++;
+            }
+        }
+        else if (cont2.contains(*i))
+        {
+            if (i->isGift())
+            {
+                std::cout << "YOU LOSE.\n";
+                // Advance iterator normally.
+                i++;
+            }
+            else
+            {
+                // Delete and adjust iterator.
+                i = entities.erase(i);
+            }
+        }
+        else
+        {
+            // Advance iterator normally.
+            i++;
+        }
+    }
 }
