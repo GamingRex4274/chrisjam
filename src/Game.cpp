@@ -72,23 +72,17 @@ void Game::doEntityContainment()
     // Execute collision of all entities with containers.
     auto i = entities.begin();
     while (i != entities.end())
-    {
         if (cont1.contains(*i))
-        {
             if (i->isGift())
-            {
                 // Delete and adjust iterator.
                 i = entities.erase(i);
-            }
             else
             {
                 std::cout << "YOU LOSE.\n";
                 // Advance iterator normally.
                 i++;
             }
-        }
         else if (cont2.contains(*i))
-        {
             if (i->isGift())
             {
                 std::cout << "YOU LOSE.\n";
@@ -96,15 +90,9 @@ void Game::doEntityContainment()
                 i++;
             }
             else
-            {
                 // Delete and adjust iterator.
                 i = entities.erase(i);
-            }
-        }
         else
-        {
             // Advance iterator normally.
             i++;
-        }
-    }
 }
