@@ -2,6 +2,7 @@
 #include "RamWindow.h"
 #include <cassert>
 #include <iostream>
+#include <fstream>
 
 Game::Game(sf::RenderWindow& rw)
     :
@@ -13,6 +14,11 @@ Game::Game(sf::RenderWindow& rw)
     scoreText.setCharacterSize(20);
     scoreText.setFont(font);
     scoreText.setPosition({5, 5});
+
+    loadTopScore();
+    topScoreText.setCharacterSize(20);
+    topScoreText.setFont(font);
+    topScoreText.setPosition({SCREEN_WIDTH - 8 * 20, 5});
 }
 
 void Game::run()
@@ -77,6 +83,15 @@ void Game::drawFrame()
     
     scoreText.setString("SCORE\n" + std::to_string(score));
     rw.draw(scoreText);
+
+    topScoreText.setString("HI-SCORE\n" + std::to_string(topScore));
+    rw.draw(topScoreText);
+}
+
+void Game::endGame()
+{
+    gameIsOver = true;
+    saveTopScore();
 }
 
 void Game::reset()
@@ -105,7 +120,7 @@ void Game::doEntityContainment()
             else
             {
                 // Coal entered gift container.
-                gameIsOver = true;
+                endGame();
                 break;
             }
         // Process coal container.
@@ -113,7 +128,7 @@ void Game::doEntityContainment()
             if (i->isGift())
             {
                 // Gift entered coal container.
-                gameIsOver = true;
+                endGame();
                 break;
             }
             else
@@ -126,4 +141,25 @@ void Game::doEntityContainment()
         else
             // Advance iterator normally.
             i++;
+}
+
+void Game::saveTopScore()
+{
+    if (score > topScore)
+    {
+        // Set top score to the new score.
+        topScore = score;
+        // Write into a new or existing file.
+        std::ofstream out("score.dat", std::ios::binary);
+        out.write(reinterpret_cast<char*>(&topScore), sizeof(topScore));
+    }
+}
+
+void Game::loadTopScore()
+{
+    // Attempt to open score file.
+    std::ifstream in("score.dat", std::ios::binary);
+    if (in)
+        // Read top score from file.
+        in.read(reinterpret_cast<char*>(&topScore), sizeof(topScore));
 }

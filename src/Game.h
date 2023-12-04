@@ -15,8 +15,11 @@ private:
     void updateEntities();
     void drawFrame();
     /** Game Functions **/
+    void endGame();
     void reset();
     void doEntityContainment();
+    void saveTopScore();
+    void loadTopScore();
 private:
     sf::RenderWindow& rw;
     sf::Clock clock;
@@ -26,6 +29,7 @@ private:
     Container cont2;
     bool gameIsOver = false;
     int score = 0;
+    int topScore = 0;
     /****** Timers ******/
     static constexpr float maxTime = 2.0f;
     static constexpr float minTime = 0.25f;
@@ -35,6 +39,7 @@ private:
     /**** Text Stuff ****/
     sf::Font font;
     sf::Text scoreText;
+    sf::Text topScoreText;
 };
 
 #endif
