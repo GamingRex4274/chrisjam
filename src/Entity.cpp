@@ -60,7 +60,8 @@ void Entity::draw(sf::RenderWindow& rw)
 
 bool Entity::contains(const sf::Vector2f& pos) const
 {
-    return rect.getGlobalBounds().contains(pos);
+    // Expand hitbox to twice the size of the entity.
+    return GetExpanded(rect.getGlobalBounds(), width).contains(pos);
 }
 
 bool Entity::isGift() const
