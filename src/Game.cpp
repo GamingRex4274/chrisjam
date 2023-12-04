@@ -76,6 +76,7 @@ void Game::reset()
 {
     entities.clear();
     curTime = 0.0f;
+    score = 0;
     gameIsOver = false;
 }
 
@@ -87,8 +88,12 @@ void Game::doEntityContainment()
         // Process gift container.
         if (cont1.contains(*i))
             if (i->isGift())
+            {
                 // Delete and adjust iterator.
                 i = entities.erase(i);
+                score++;
+                std::cout << score << "\n";
+            }
             else
             {
                 // Coal entered gift container.
@@ -104,8 +109,12 @@ void Game::doEntityContainment()
                 break;
             }
             else
+            {
                 // Delete and adjust iterator.
                 i = entities.erase(i);
+                score++;
+                std::cout << score << "\n";
+            }
         else
             // Advance iterator normally.
             i++;

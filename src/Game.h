@@ -27,6 +27,7 @@ private:
     static constexpr float spawnTime = 2.0f;
     float curTime = 0.0f;
     bool gameIsOver = false;
+    int score = 0;
 };
 
 #endif
