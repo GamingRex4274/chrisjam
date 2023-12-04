@@ -84,6 +84,7 @@ void Game::reset()
     entities.clear();
     curTime = 0.0f;
     score = 0;
+    spawnTime = maxTime;
     gameIsOver = false;
 }
 
@@ -99,6 +100,7 @@ void Game::doEntityContainment()
                 // Delete and adjust iterator.
                 i = entities.erase(i);
                 score++;
+                spawnTime = std::max(minTime, spawnTime - step);
             }
             else
             {
@@ -119,6 +121,7 @@ void Game::doEntityContainment()
                 // Delete and adjust iterator.
                 i = entities.erase(i);
                 score++;
+                spawnTime = std::max(minTime, spawnTime - step);
             }
         else
             // Advance iterator normally.

@@ -24,10 +24,14 @@ private:
     std::vector<Entity> entities;
     Container cont1;
     Container cont2;
-    static constexpr float spawnTime = 2.0f;
-    float curTime = 0.0f;
     bool gameIsOver = false;
     int score = 0;
+    /****** Timers ******/
+    static constexpr float maxTime = 2.0f;
+    static constexpr float minTime = 0.25f;
+    static constexpr float step = 0.0175f;
+    float spawnTime = maxTime;
+    float curTime = 0.0f;
     /**** Text Stuff ****/
     sf::Font font;
     sf::Text scoreText;
