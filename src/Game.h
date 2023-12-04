@@ -28,6 +28,9 @@ private:
     float curTime = 0.0f;
     bool gameIsOver = false;
     int score = 0;
+    /**** Text Stuff ****/
+    sf::Font font;
+    sf::Text scoreText;
 };
 
 #endif

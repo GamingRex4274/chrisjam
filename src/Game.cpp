@@ -9,6 +9,10 @@ Game::Game(sf::RenderWindow& rw)
     cont1({20.0f, 250.0f}, sf::Color::Green),
     cont2({SCREEN_WIDTH - 120.0f, 250.0f}, sf::Color::Blue)
 {
+    font.loadFromFile("src\\Fonts\\consola.ttf");
+    scoreText.setCharacterSize(20);
+    scoreText.setFont(font);
+    scoreText.setPosition({5, 5});
 }
 
 void Game::run()
@@ -70,6 +74,9 @@ void Game::drawFrame()
     
     for (Entity& e : entities)
         e.draw(rw);
+    
+    scoreText.setString("SCORE\n" + std::to_string(score));
+    rw.draw(scoreText);
 }
 
 void Game::reset()
@@ -92,7 +99,6 @@ void Game::doEntityContainment()
                 // Delete and adjust iterator.
                 i = entities.erase(i);
                 score++;
-                std::cout << score << "\n";
             }
             else
             {
@@ -113,7 +119,6 @@ void Game::doEntityContainment()
                 // Delete and adjust iterator.
                 i = entities.erase(i);
                 score++;
-                std::cout << score << "\n";
             }
         else
             // Advance iterator normally.
