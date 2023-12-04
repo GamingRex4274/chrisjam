@@ -43,19 +43,24 @@ void Game::updateEntities()
 {
     float dt = clock.restart().asSeconds();
 
-    // Spawn new entities.
-    curTime += dt;
-    if (curTime >= spawnTime)
+    if (!gameIsOver)
     {
-        entities.emplace_back();
-        curTime = 0.0f;
+        // Spawn new entities.
+        curTime += dt;
+        if (curTime >= spawnTime)
+        {
+            entities.emplace_back();
+            curTime = 0.0f;
+        }
+
+        // Update all entities
+        for (Entity& e : entities)
+            e.update(rw, dt);
+
+        doEntityContainment();
     }
-
-    // Update all entities
-    for (Entity& e : entities)
-        e.update(rw, dt);
-
-    doEntityContainment();
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+        reset();
 }
 
 void Game::drawFrame()
@@ -67,27 +72,36 @@ void Game::drawFrame()
         e.draw(rw);
 }
 
+void Game::reset()
+{
+    entities.clear();
+    curTime = 0.0f;
+    gameIsOver = false;
+}
+
 void Game::doEntityContainment()
 {
     // Execute collision of all entities with containers.
     auto i = entities.begin();
     while (i != entities.end())
+        // Process gift container.
         if (cont1.contains(*i))
             if (i->isGift())
                 // Delete and adjust iterator.
                 i = entities.erase(i);
             else
             {
-                std::cout << "YOU LOSE.\n";
-                // Advance iterator normally.
-                i++;
+                // Coal entered gift container.
+                gameIsOver = true;
+                break;
             }
+        // Process coal container.
         else if (cont2.contains(*i))
             if (i->isGift())
             {
-                std::cout << "YOU LOSE.\n";
-                // Advance iterator normally.
-                i++;
+                // Gift entered coal container.
+                gameIsOver = true;
+                break;
             }
             else
                 // Delete and adjust iterator.

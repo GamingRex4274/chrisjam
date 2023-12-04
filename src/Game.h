@@ -15,6 +15,7 @@ private:
     void updateEntities();
     void drawFrame();
     /** Game Functions **/
+    void reset();
     void doEntityContainment();
 private:
     sf::RenderWindow& rw;
@@ -25,6 +26,7 @@ private:
     Container cont2;
     static constexpr float spawnTime = 2.0f;
     float curTime = 0.0f;
+    bool gameIsOver = false;
 };
 
 #endif
