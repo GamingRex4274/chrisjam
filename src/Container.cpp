@@ -2,7 +2,7 @@
 
 Container::Container(const sf::Vector2f& pos, const std::string& filename)
     :
-    anim(pos, width, height, 0.1f, filename)
+    anim(pos, width, height, 2, 0.1f, filename)
 {
 }
 
