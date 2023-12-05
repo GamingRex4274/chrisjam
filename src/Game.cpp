@@ -101,6 +101,9 @@ void Game::updateEntities()
 
     if (!gameIsOver)
     {
+        cont1.update(dt);
+        cont2.update(dt);
+
         // Spawn new entities.
         curTime += dt;
         if (curTime >= spawnTime)
