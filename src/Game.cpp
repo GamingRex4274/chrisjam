@@ -7,8 +7,8 @@
 Game::Game(sf::RenderWindow& rw)
     :
     rw(rw),
-    cont1({20.0f, 250.0f}, sf::Color::Green),
-    cont2({SCREEN_WIDTH - 120.0f, 250.0f}, sf::Color::Blue)
+    cont1({0.0f, 390.0f}, "src\\Sprites\\lcon.png"),
+    cont2({SCREEN_WIDTH - 82.0f, 390.0f}, "src\\Sprites\\rcon.png")
 {
     font.loadFromFile("src\\Fonts\\consola.ttf");
     scoreText.setCharacterSize(20);

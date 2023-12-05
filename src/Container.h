@@ -1,4 +1,4 @@
-#include <SFML/Graphics.hpp>
+#include "TextureManager.h"
 #include "Entity.h"
 
 #ifndef CONTAINER_H
@@ -7,13 +7,14 @@
 class Container
 {
 public:
-    Container(const sf::Vector2f& pos, sf::Color color);
+    Container(const sf::Vector2f& pos, const std::string& filename);
     void draw(sf::RenderWindow& rw);
     bool contains(const Entity& entity) const;
 private:
-    static constexpr int width = 100;
-    static constexpr int height = 100;
-    sf::RectangleShape rect;
+    static constexpr int width = 82;
+    static constexpr int height = 81;
+    std::shared_ptr<sf::Texture> pTex;
+    sf::Sprite sprite;
 };
 
 #endif
