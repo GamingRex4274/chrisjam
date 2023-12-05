@@ -47,6 +47,18 @@ private:
     /**** Sprite/Audio ****/
     std::shared_ptr<sf::Texture> pBgTex;
     sf::Sprite bg;
+    static constexpr int deerWidth = 133;
+    static constexpr int deerHeight = 51;
+    std::shared_ptr<sf::Texture> pDeerTex;
+    sf::Sprite deer;
+    static constexpr int fireWidth = 39;
+    static constexpr int fireHeight = 39;
+    std::shared_ptr<sf::Texture> pFireTex;
+    sf::Sprite fire;
+    static constexpr int conWidth = 57;
+    static constexpr int conHeight = 18;
+    std::shared_ptr<sf::Texture> pConTex;
+    sf::Sprite conveyor;
     sf::Music bgm;
 };
 

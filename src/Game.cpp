@@ -39,9 +39,25 @@ Game::Game(sf::RenderWindow& rw)
     gameOverSubText.setOrigin(sf::Vector2f(size1 / 2 * str1.length(), size1) / 2.0f);
     gameOverSubText.setPosition({GetScreenCenter().x, SCREEN_HEIGHT - 20});
 
-    // Load background.
+    // Load sprites.
     pBgTex = TextureManager::acquire("src\\Sprites\\bg.png");
     bg.setTexture(*pBgTex);
+
+    pDeerTex = TextureManager::acquire("src\\Sprites\\deer.png");
+    deer.setTexture(*pDeerTex);
+    deer.setTextureRect({0, 0, deerWidth, deerHeight});
+    deer.setPosition({175, 45});
+
+    pFireTex = TextureManager::acquire("src\\Sprites\\fire.png");
+    fire.setTexture(*pFireTex);
+    fire.setTextureRect({0, 0, fireWidth, fireHeight});
+    fire.setPosition({600, 161});
+
+    pConTex = TextureManager::acquire("src\\Sprites\\ccon.png");
+    conveyor.setTexture(*pConTex);
+    conveyor.setTextureRect({0, 0, conWidth, conHeight});
+    conveyor.setOrigin(sf::Vector2f(conWidth, conHeight) / 2.0f);
+    conveyor.setPosition(403, 204);
 
     // Load background music.
     bgm.openFromFile("src\\Music\\bgm.wav");
@@ -106,6 +122,9 @@ void Game::updateEntities()
 void Game::drawFrame()
 {
     rw.draw(bg);
+    rw.draw(deer);
+    rw.draw(fire);
+    rw.draw(conveyor);
 
     cont1.draw(rw);
     cont2.draw(rw);
