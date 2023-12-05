@@ -50,6 +50,8 @@ private:
     static constexpr int deerWidth = 133;
     static constexpr int deerHeight = 51;
     Animation deer;
+    std::shared_ptr<sf::Texture> pShTex;
+    sf::Sprite shockedDeer;
     static constexpr int fireWidth = 39;
     static constexpr int fireHeight = 39;
     Animation fire;

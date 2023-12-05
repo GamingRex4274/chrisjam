@@ -11,7 +11,7 @@ Game::Game(sf::RenderWindow& rw)
     cont2({SCREEN_WIDTH - 82.0f, 390.0f}, "src\\Sprites\\rcon.png"),
     conveyor({375, 195}, conWidth, conHeight, 2, 0.1f, "src\\Sprites\\ccon.png"),
     fire({600, 161}, fireWidth, fireHeight, 2, 0.1f, "src\\Sprites\\fire.png"),
-    deer({175, 45}, deerWidth, deerHeight, 5, 0.5f, "src\\Sprites\\deer.png")
+    deer({175, 45}, deerWidth, deerHeight, 24, 1.0f, "src\\Sprites\\deer.png")
 {
     // Load font and score text.
     font.loadFromFile("src\\Fonts\\consola.ttf");
@@ -45,6 +45,11 @@ Game::Game(sf::RenderWindow& rw)
     // Load sprites.
     pBgTex = TextureManager::acquire("src\\Sprites\\bg.png");
     bg.setTexture(*pBgTex);
+
+    pShTex = TextureManager::acquire("src\\Sprites\\deer.png");
+    shockedDeer.setTexture(*pShTex);
+    shockedDeer.setTextureRect({deerWidth * 24, 0, deerWidth, deerHeight});
+    shockedDeer.setPosition({175, 45});
 
     // Load background music.
     bgm.openFromFile("src\\Music\\bgm.wav");
@@ -115,9 +120,13 @@ void Game::updateEntities()
 void Game::drawFrame()
 {
     rw.draw(bg);
-    deer.draw(rw);
     fire.draw(rw);
     conveyor.draw(rw);
+
+    if (gameIsOver)
+        rw.draw(shockedDeer);
+    else
+        deer.draw(rw);
 
     cont1.draw(rw);
     cont2.draw(rw);
