@@ -17,6 +17,7 @@ private:
     void move(float dt);
     void clamp();
 private:
+    static constexpr int upperLimit = 175;
     sf::Vector2f dir;
     bool dragging = false;
     bool is_gift = false;

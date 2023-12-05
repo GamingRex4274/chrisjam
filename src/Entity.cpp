@@ -79,7 +79,7 @@ void Entity::move(float dt)
     const sf::Vector2f pos = sprite.getPosition();
     if (pos.x - width / 2 < 0 || pos.x + width / 2 >= SCREEN_WIDTH)
         dir.x = -dir.x;
-    if (pos.y - height / 2 < 0 || pos.y + height / 2 >= SCREEN_HEIGHT)
+    if (pos.y - height / 2 < upperLimit || pos.y + height / 2 >= SCREEN_HEIGHT)
         dir.y = -dir.y;
     
     sprite.move(dir * speed * dt);
@@ -95,7 +95,7 @@ void Entity::clamp()
     else if (pos.x + width / 2 >= SCREEN_WIDTH)
         pos.x = SCREEN_WIDTH - width / 2 - 1;
     
-    if (pos.y - height / 2 < 0)
+    if (pos.y - height / 2 < upperLimit)
         pos.y = height / 2;
     else if (pos.y + height / 2 >= SCREEN_HEIGHT)
         pos.y = SCREEN_HEIGHT - height / 2 - 1;
