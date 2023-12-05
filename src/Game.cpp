@@ -10,16 +10,19 @@ Game::Game(sf::RenderWindow& rw)
     cont1({0.0f, 390.0f}, "src\\Sprites\\lcon.png"),
     cont2({SCREEN_WIDTH - 82.0f, 390.0f}, "src\\Sprites\\rcon.png")
 {
+    // Load font and score text.
     font.loadFromFile("src\\Fonts\\consola.ttf");
     scoreText.setCharacterSize(20);
     scoreText.setFont(font);
     scoreText.setPosition({5, 5});
 
+    // Load top score text.
     loadTopScore();
     topScoreText.setCharacterSize(20);
     topScoreText.setFont(font);
     topScoreText.setPosition({SCREEN_WIDTH - 120, 5});
 
+    // Load game over text.
     std::string str = "WRONG PRESENT!";
     const int size = 50;
     gameOverText.setFont(font);
@@ -36,8 +39,15 @@ Game::Game(sf::RenderWindow& rw)
     gameOverSubText.setOrigin(sf::Vector2f(size1 / 2 * str1.length(), size1) / 2.0f);
     gameOverSubText.setPosition({GetScreenCenter().x, SCREEN_HEIGHT - 20});
 
+    // Load background.
     pBgTex = TextureManager::acquire("src\\Sprites\\bg.png");
     bg.setTexture(*pBgTex);
+
+    // Load background music.
+    bgm.openFromFile("src\\Music\\bgm.wav");
+    bgm.setLoop(true);
+    bgm.setVolume(25);
+    bgm.play();
 }
 
 void Game::run()

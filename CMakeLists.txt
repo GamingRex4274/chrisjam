@@ -11,7 +11,7 @@ FetchContent_Declare(SFML
 FetchContent_MakeAvailable(SFML)
 
 add_executable(ChristmasJam src/main.cpp src/Game.cpp src/RamMath.h src/RamWindow.h src/Entity.cpp src/Container.cpp src/TextureManager.cpp)
-target_link_libraries(ChristmasJam PRIVATE sfml-graphics)
+target_link_libraries(ChristmasJam PRIVATE sfml-graphics sfml-audio)
 target_compile_features(ChristmasJam PRIVATE cxx_std_17)
 
 if(WIN32)

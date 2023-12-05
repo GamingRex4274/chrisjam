@@ -1,6 +1,7 @@
 #include "Entity.h"
 #include "Container.h"
 #include "TextureManager.h"
+#include <SFML/Audio.hpp>
 #include <vector>
 
 #ifndef GAME_H
@@ -43,9 +44,10 @@ private:
     sf::Text topScoreText;
     sf::Text gameOverText;
     sf::Text gameOverSubText;
-    /**** Sprite Data ****/
+    /**** Sprite/Audio ****/
     std::shared_ptr<sf::Texture> pBgTex;
     sf::Sprite bg;
+    sf::Music bgm;
 };
 
 #endif
