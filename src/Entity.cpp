@@ -23,7 +23,7 @@ Entity::Entity()
     dir = GetNormalized({dirDist(rng), dirDist(rng)});
 
     sprite.setOrigin(sf::Vector2f(width, height) / 2.0f);
-    sprite.setPosition(GetScreenCenter());
+    sprite.setPosition({GetScreenCenter().x, upperLimit + 2 + height / 2.0f});
 }
 
 void Entity::startMovement()
