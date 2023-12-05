@@ -4,8 +4,6 @@
 #include <random>
 
 Entity::Entity()
-    :
-    rect({width, height})
 {
     std::mt19937 rng(std::random_device{}());
 
@@ -15,16 +13,17 @@ Entity::Entity()
 
     // Set entity sprite based on type.
     if (is_gift)
-        rect.setFillColor(sf::Color::Red);
+        pTex = TextureManager::acquire("src\\Sprites\\gift.png");
     else
-        rect.setFillColor(sf::Color::Yellow);
+        pTex = TextureManager::acquire("src\\Sprites\\coal.png");
+    sprite.setTexture(*pTex);
 
     // Randomize direction.
     std::uniform_real_distribution<float> dirDist(-1.0f, 1.0f);
     dir = GetNormalized({dirDist(rng), dirDist(rng)});
 
-    rect.setOrigin(sf::Vector2f(width, height) / 2.0f);
-    rect.setPosition(GetScreenCenter());
+    sprite.setOrigin(sf::Vector2f(width, height) / 2.0f);
+    sprite.setPosition(GetScreenCenter());
 }
 
 void Entity::startMovement()
@@ -40,7 +39,7 @@ void Entity::update(sf::RenderWindow& rw, float dt)
         {
             // Get mouse position.
             const sf::Vector2f pos = sf::Vector2f(sf::Mouse::getPosition(rw));
-            rect.setPosition(pos);
+            sprite.setPosition(pos);
             clamp();
         }
         else
@@ -48,20 +47,20 @@ void Entity::update(sf::RenderWindow& rw, float dt)
     }
     else
     {
-        const sf::Vector2f pos = rect.getPosition();
+        const sf::Vector2f pos = sprite.getPosition();
         move(dt);
     }
 }
 
 void Entity::draw(sf::RenderWindow& rw)
 {
-    rw.draw(rect);
+    rw.draw(sprite);
 }
 
 bool Entity::contains(const sf::Vector2f& pos) const
 {
     // Expand hitbox to twice the size of the entity.
-    return GetExpanded(rect.getGlobalBounds(), width).contains(pos);
+    return GetExpanded(sprite.getGlobalBounds(), width).contains(pos);
 }
 
 bool Entity::isGift() const
@@ -71,24 +70,24 @@ bool Entity::isGift() const
 
 sf::FloatRect Entity::getRect() const
 {
-    return rect.getGlobalBounds();
+    return sprite.getGlobalBounds();
 }
 
 void Entity::move(float dt)
 {
     // Change direction if entity hits screen edges.
-    const sf::Vector2f pos = rect.getPosition();
+    const sf::Vector2f pos = sprite.getPosition();
     if (pos.x - width / 2 < 0 || pos.x + width / 2 >= SCREEN_WIDTH)
         dir.x = -dir.x;
     if (pos.y - height / 2 < 0 || pos.y + height / 2 >= SCREEN_HEIGHT)
         dir.y = -dir.y;
     
-    rect.move(dir * speed * dt);
+    sprite.move(dir * speed * dt);
 }
 
 void Entity::clamp()
 {
-    sf::Vector2f pos = rect.getPosition();
+    sf::Vector2f pos = sprite.getPosition();
 
     // Check if center offset with dimensions go out of bounds.
     if (pos.x - width / 2 < 0)
@@ -101,5 +100,5 @@ void Entity::clamp()
     else if (pos.y + height / 2 >= SCREEN_HEIGHT)
         pos.y = SCREEN_HEIGHT - height / 2 - 1;
     
-    rect.setPosition(pos);
+    sprite.setPosition(pos);
 }

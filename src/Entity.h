@@ -1,4 +1,4 @@
-#include <SFML/Graphics.hpp>
+#include "TextureManager.h"
 
 #ifndef ENTITY_H
 #define ENTITY_H
@@ -23,7 +23,8 @@ private:
     static constexpr float speed = 75.0f;
     static constexpr int width = 32;
     static constexpr int height = 32;
-    sf::RectangleShape rect;
+    std::shared_ptr<sf::Texture> pTex;
+    sf::Sprite sprite;
 };
 
 #endif
