@@ -115,7 +115,7 @@ void Game::doEntityContainment()
     auto i = entities.begin();
     while (i != entities.end())
         // Process gift container.
-        if (cont1.contains(*i))
+        if (cont2.contains(*i))
             if (i->isGift())
             {
                 // Delete and adjust iterator.
@@ -130,7 +130,7 @@ void Game::doEntityContainment()
                 break;
             }
         // Process coal container.
-        else if (cont2.contains(*i))
+        else if (cont1.contains(*i))
             if (i->isGift())
             {
                 // Gift entered coal container.
