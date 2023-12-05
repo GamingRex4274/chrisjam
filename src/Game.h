@@ -1,5 +1,6 @@
 #include "Entity.h"
 #include "Container.h"
+#include "TextureManager.h"
 #include <vector>
 
 #ifndef GAME_H
@@ -40,6 +41,9 @@ private:
     sf::Font font;
     sf::Text scoreText;
     sf::Text topScoreText;
+    /**** Sprite Data ****/
+    std::shared_ptr<sf::Texture> pBgTex;
+    sf::Sprite bg;
 };
 
 #endif

@@ -18,7 +18,10 @@ Game::Game(sf::RenderWindow& rw)
     loadTopScore();
     topScoreText.setCharacterSize(20);
     topScoreText.setFont(font);
-    topScoreText.setPosition({SCREEN_WIDTH - 8 * 20, 5});
+    topScoreText.setPosition({SCREEN_WIDTH - 120, 5});
+
+    pBgTex = TextureManager::acquire("src\\Sprites\\bg.png");
+    bg.setTexture(*pBgTex);
 }
 
 void Game::run()
@@ -52,6 +55,7 @@ void Game::processEvents()
 void Game::updateEntities()
 {
     float dt = clock.restart().asSeconds();
+    TextureManager::clean();
 
     if (!gameIsOver)
     {
@@ -75,6 +79,8 @@ void Game::updateEntities()
 
 void Game::drawFrame()
 {
+    rw.draw(bg);
+
     cont1.draw(rw);
     cont2.draw(rw);
     
