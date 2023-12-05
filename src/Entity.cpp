@@ -96,7 +96,7 @@ void Entity::clamp()
         pos.x = SCREEN_WIDTH - width / 2 - 1;
     
     if (pos.y - height / 2 < upperLimit)
-        pos.y = height / 2;
+        pos.y = upperLimit + height / 2;
     else if (pos.y + height / 2 >= SCREEN_HEIGHT)
         pos.y = SCREEN_HEIGHT - height / 2 - 1;
     
