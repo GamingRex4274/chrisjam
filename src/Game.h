@@ -41,6 +41,8 @@ private:
     sf::Font font;
     sf::Text scoreText;
     sf::Text topScoreText;
+    sf::Text gameOverText;
+    sf::Text gameOverSubText;
     /**** Sprite Data ****/
     std::shared_ptr<sf::Texture> pBgTex;
     sf::Sprite bg;

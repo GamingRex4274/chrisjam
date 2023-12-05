@@ -20,6 +20,22 @@ Game::Game(sf::RenderWindow& rw)
     topScoreText.setFont(font);
     topScoreText.setPosition({SCREEN_WIDTH - 120, 5});
 
+    std::string str = "WRONG PRESENT!";
+    const int size = 50;
+    gameOverText.setFont(font);
+    gameOverText.setCharacterSize(size);
+    gameOverText.setString(str);
+    gameOverText.setOrigin(sf::Vector2f(size / 2 * str.length(), size) / 2.0f);
+    gameOverText.setPosition(GetScreenCenter());
+
+    std::string str1 = "Press ENTER to restart.";
+    const int size1 = 20;
+    gameOverSubText.setFont(font);
+    gameOverSubText.setCharacterSize(size1);
+    gameOverSubText.setString(str1);
+    gameOverSubText.setOrigin(sf::Vector2f(size1 / 2 * str1.length(), size1) / 2.0f);
+    gameOverSubText.setPosition({GetScreenCenter().x, SCREEN_HEIGHT - 20});
+
     pBgTex = TextureManager::acquire("src\\Sprites\\bg.png");
     bg.setTexture(*pBgTex);
 }
@@ -92,6 +108,12 @@ void Game::drawFrame()
 
     topScoreText.setString("HI-SCORE\n" + std::to_string(topScore));
     rw.draw(topScoreText);
+
+    if (gameIsOver)
+    {
+        rw.draw(gameOverText);
+        rw.draw(gameOverSubText);
+    }
 }
 
 void Game::endGame()
