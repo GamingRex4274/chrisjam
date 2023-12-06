@@ -3,7 +3,7 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Christmas Project", sf::Style::Close);
+    sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Bogo Gift Sort", sf::Style::Close);
     window.setFramerateLimit(60);
     window.setKeyRepeatEnabled(false);
 
