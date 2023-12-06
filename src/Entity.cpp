@@ -68,6 +68,11 @@ bool Entity::isGift() const
     return is_gift;
 }
 
+bool Entity::isDragged() const
+{
+    return dragging;
+}
+
 sf::FloatRect Entity::getRect() const
 {
     return sprite.getGlobalBounds();

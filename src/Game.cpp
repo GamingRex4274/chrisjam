@@ -73,17 +73,6 @@ void Game::processEvents()
     while (rw.pollEvent(ev))
         if (ev.type == sf::Event::Closed)
             rw.close();
-        if (ev.type == sf::Event::MouseButtonPressed)
-            if (ev.mouseButton.button == sf::Mouse::Left)
-            {
-                const sf::Vector2f pos = sf::Vector2f(ev.mouseButton.x, ev.mouseButton.y);
-                for (Entity& e : entities)
-                    if (e.contains(pos))
-                    {
-                        e.startMovement();
-                        break;
-                    }
-            }
 }
 
 void Game::updateEntities()
@@ -105,6 +94,22 @@ void Game::updateEntities()
         {
             entities.emplace_back();
             curTime = 0.0f;
+        }
+
+        // Function to test whether entities are being dragged.
+        const auto drag_pred = [](const Entity& e){return !e.isDragged();};
+        // Check mouse input to start entity movement.
+        // Only drag new entity if no others are already being dragged.
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)
+            && std::all_of(entities.begin(), entities.end(), drag_pred))
+        {
+            const sf::Vector2f pos = sf::Vector2f(sf::Mouse::getPosition(rw));
+            for (Entity& e : entities)
+                if (e.contains(pos))
+                {
+                    e.startMovement();
+                    break;
+                }
         }
 
         // Update all entities

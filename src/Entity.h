@@ -12,6 +12,7 @@ public:
     void draw(sf::RenderWindow& rw);
     bool contains(const sf::Vector2f& pos) const;
     bool isGift() const;
+    bool isDragged() const;
     sf::FloatRect getRect() const;
 private:
     void move(float dt);
